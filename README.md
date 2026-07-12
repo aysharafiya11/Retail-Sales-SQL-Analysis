@@ -1,195 +1,272 @@
-# 🛍️ Retail Sales SQL Analysis
+# 🛍️ Retail Sales Analysis using MySQL
 
-## 📌 Project Overview
+![MySQL](https://img.shields.io/badge/Database-MySQL-blue)
+![SQL](https://img.shields.io/badge/Language-SQL-success)
+![Project](https://img.shields.io/badge/Project-Data%20Analytics-orange)
+![Status](https://img.shields.io/badge/Status-Completed-brightgreen)
 
-This project analyzes retail sales data using **MySQL** to uncover business insights and demonstrate practical SQL skills. It covers data exploration, sales analysis, customer behavior, and business reporting using SQL queries.
+## 📖 Project Overview
 
-This project is designed as part of my Data Analytics portfolio to showcase SQL proficiency through real-world business scenarios.
+This project demonstrates end-to-end SQL analysis using **MySQL
+Workbench** on a retail sales dataset. It covers database creation, data
+import, data cleaning, exploratory data analysis (EDA), business
+reporting, and advanced SQL analytics using Common Table Expressions
+(CTEs) and Window Functions.
 
----
+More than **35 business questions** were solved to uncover customer
+behavior, sales trends, product performance, and revenue insights.
 
 ## 🎯 Objectives
 
-- Analyze retail sales data using SQL
-- Generate business insights from sales transactions
-- Practice SQL concepts using a real-world dataset
-- Build a portfolio-ready SQL project
+-   Build a retail sales database in MySQL.
+-   Import and validate transaction data.
+-   Clean and inspect the dataset.
+-   Perform exploratory data analysis.
+-   Answer business questions using SQL.
+-   Demonstrate advanced SQL techniques.
+-   Build a portfolio-ready SQL project.
 
----
+## 🛠️ Tech Stack
 
-## 🛠️ Tools & Technologies
+ | Tool         | Purpose |
+ | ---------------| ------------|
+ | MySQL         |    Database |
+ | MySQL Workbench  | SQL IDE|
+ | SQL             |  Query Language|
+ | Git             |  Version Control|
+ | GitHub           | Portfolio Hosting|
 
-- **Database:** MySQL
-- **IDE:** MySQL Workbench
-- **Language:** SQL
-- **Dataset Format:** CSV
-- **Version Control:** Git & GitHub
+## 📂 Dataset Information
 
----
+The dataset contains retail transactions with the following fields:
 
-## 📂 Dataset
+-   Transaction ID
+-   Sale Date
+-   Sale Time
+-   Customer ID
+-   Gender
+-   Age
+-   Category
+-   Quantity
+-   Price per Unit
+-   COGS
+-   Total Sale
 
-The dataset contains retail sales transaction records with the following fields:
+## 📥 Dataset Import
 
-- Transaction ID
-- Sale Date
-- Sale Time
-- Customer ID
-- Gender
-- Age
-- Product Category
-- Quantity
-- Price per Unit
-- Cost of Goods Sold (COGS)
-- Total Sale
+The original CSV contained **2,000** records.
 
----
+While importing using **MySQL Workbench -- Table Data Import Wizard**,
+only **1,987** records were imported successfully.
 
-## 🗄️ Database Schema
+  Description               Records
+  ----------------------- ---------
+  Original Dataset            2,000
+  Successfully Imported       1,987
+  Not Imported                   13
 
-The project uses a single table:
+> The excluded records contained incomplete values (primarily in the **Age** and
+> **Quantity** column). Rather than manually modifying the source data,
+> the analysis was performed on the 1,987 successfully imported records.
 
-**retail_sales_table**
+## 🗄️ Database Setup
 
-### Table Structure
+``` sql
+CREATE DATABASE SQL_Project;
 
-![Table Structure](Images/table_structure.png)
+CREATE TABLE retail_sales_table(
+ transactions_id INT PRIMARY KEY,
+ sale_date DATE,
+ sale_time TIME,
+ customer_id INT,
+ gender VARCHAR(20),
+ age INT,
+ category VARCHAR(20),
+ quantity INT,
+ price_per_unit FLOAT,
+ cogs FLOAT,
+ total_sale FLOAT
+);
+```
 
-### Database Schema
+### Screenshots
+
+- Database Schema:
 
 ![Database Schema](Images/database_schema.png)
 
----
+- Table Structure:
 
-## 📊 SQL Concepts Used
+![Table Structure](Images/table_structure.png)
 
-This project demonstrates:
-
-- CREATE DATABASE
-- CREATE TABLE
-- SELECT Statements
-- WHERE Clause
-- ORDER BY
-- GROUP BY
-- Aggregate Functions
-- CASE Statements
-- Date Functions
-- Time Functions
-- LIMIT
-- Business Analytics Queries
-
----
-
-## 📈 Business Questions Solved
-
-✔️ Total number of sales
-
-✔️ Number of unique customers
-
-✔️ Category-wise sales analysis
-
-✔️ Total sales and total orders by category
-
-✔️ Best selling month
-
-✔️ Sales by customer age and gender
-
-✔️ Sales during Morning, Afternoon and Evening shifts
-
-✔️ Overall sales summary
-
----
-
-## 📸 Project Screenshots
-
-### Dataset Preview
-
-![Dataset Preview](Images/dataset_preview.png)
-
-### Create Table
+- Create Table:
 
 ![Create Table](Images/create_table.png)
 
-### Category Sales Analysis
+## 🧹 Data Cleaning
 
-![Category Sales Analysis](Images/category_sales_analysis.png)
+### Check for Missing Values
 
-### Best Selling Month
+``` sql
+SELECT *
+FROM retail_sales_table
+WHERE sale_date IS NULL
+OR sale_time IS NULL
+OR customer_id IS NULL
+OR gender IS NULL
+OR age IS NULL
+OR category IS NULL
+OR quantity IS NULL
+OR price_per_unit IS NULL
+OR cogs IS NULL
+OR total_sale IS NULL;
+```
 
-![Best Selling Month](Images/best_selling_month_analysis.png)
+### Record Count
 
-### Sales Summary
+``` sql
+SELECT COUNT(*) FROM retail_sales_table;
+```
 
-![Sales Summary](Images/sales_summary.png)
+### Unique Customers
 
-### Shift Analysis
+``` sql
+SELECT COUNT(DISTINCT customer_id)
+FROM retail_sales_table;
+```
 
-![Shift Analysis](Images/shift_analysis.png)
+### Product Categories
 
----
+``` sql
+SELECT DISTINCT category
+FROM retail_sales_table;
+```
+
+### Dataset Preview
+
+``` sql
+SELECT *
+FROM retail_sales_table
+LIMIT 10;
+```
+
+## 🔍 Exploratory Data Analysis
+
+The project validates: 
+- Dataset completeness
+- Product categories
+- Customer distribution
+- Sales records
+- Transaction volume
+
+## 📊 Business Analysis
+
+### Sales Analysis
+
+-   Sales on a specific date
+-   Clothing sales in November 2022
+-   Category-wise revenue
+-   Total orders by category
+-   Highest revenue category
+-   Monthly revenue trend
+-   Best selling month
+-   Revenue contribution by category
+
+### Customer Analysis
+
+-   Top 10 customers
+-   Repeat customers
+-   Customers spending above average
+-   Average age by category
+-   Gender-wise spending
+-   Unique customers by category
+
+### Time-Based Analysis
+
+-   Revenue by weekday
+-   Revenue by hour
+-   Peak shopping hours
+-   Morning / Afternoon / Evening shift analysis
+
+### Product Analysis
+
+-   Highest-selling category each month
+-   Average quantity purchased
+-   Revenue by age group
+
+### Advanced SQL Analytics
+
+-   Top 3 customers per category (DENSE_RANK)
+-   Running total of daily sales
+-   7-day moving average
+-   Month-over-Month growth (LAG)
+-   Daily sales above monthly average
+-   Median transaction value (ROW_NUMBER)
+-   Category ranking within each gender
+
+## 🚀 SQL Concepts Demonstrated
+
+-   CREATE DATABASE / CREATE TABLE
+-   SELECT, WHERE, ORDER BY, LIMIT
+-   GROUP BY, HAVING
+-   Aggregate Functions
+-   CASE Expressions
+-   Date & Time Functions
+-   CTEs
+-   Window Functions
+-   RANK(), DENSE_RANK(), ROW_NUMBER(), LAG()
+-   SUM() OVER(), AVG() OVER()
 
 ## 💡 Key Insights
 
-- Electronics generated the highest overall sales.
-- Clothing recorded the highest number of customer orders.
-- Evening shift had the maximum number of transactions.
-- Customer purchasing behavior varies across product categories.
-- SQL can effectively transform raw transactional data into meaningful business insights.
-
----
+-   Electronics generated the highest revenue.
+-   Clothing recorded the highest number of orders.
+-   Evening was the busiest shopping period.
+-   Revenue varies significantly across product categories.
+-   Window functions simplify ranking and trend analysis.
 
 ## 📁 Project Structure
 
-```
+``` text
 Retail-Sales-SQL-Analysis/
-│
 ├── README.md
+├── LICENSE
 ├── Retail_Sales_Analysis_Project.sql
 ├── retail_sales.csv
-├── LICENSE
 └── Images/
     ├── create_table.png
     ├── database_schema.png
-    ├── dataset_preview.png
     ├── table_structure.png
-    ├── category_sales_analysis.png
-    ├── best_selling_month_analysis.png
-    ├── sales_summary.png
-    └── shift_analysis.png
+    ├── dataset_preview.png
+    └── sales_summary.png
 ```
 
----
+## ▶️ How to Run
 
-## 🚀 How to Run the Project
-
-1. Download or clone this repository.
-2. Open **MySQL Workbench**.
-3. Create a new database.
-4. Import the `retail_sales.csv` dataset.
-5. Execute `Retail_Sales_Analysis_Project.sql`.
-6. Run the queries to reproduce the analysis.
-
----
+1.  Clone the repository.
+2.  Open MySQL Workbench.
+3.  Create the database.
+4.  Import `retail_sales.csv`.
+5.  Execute `Retail_Sales_Analysis_Project.sql`.
+6.  Run the queries to reproduce the analysis.
 
 ## 🎓 Skills Demonstrated
 
-- SQL Programming
-- Data Exploration
-- Data Analysis
-- Business Intelligence
-- Aggregate Functions
-- Conditional Logic
-- Database Design
-- Data Reporting
-
----
+-   SQL Programming
+-   Data Cleaning
+-   Exploratory Data Analysis
+-   Business Analytics
+-   Customer Analytics
+-   Sales Analytics
+-   CTEs
+-   Window Functions
+-   Ranking Functions
+-   Time-Series Analysis
 
 ## 👩‍💻 Author
 
 **Aysha Rafiya**
 
-- GitHub: https://github.com/aysharafiya11
+------------------------------------------------------------------------
 
----
-
-## ⭐ If you found this project useful, consider giving it a star!
+⭐ If you found this project useful, consider giving it a star!
