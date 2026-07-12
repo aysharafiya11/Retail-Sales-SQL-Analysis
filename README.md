@@ -91,15 +91,15 @@ CREATE TABLE retail_sales_table(
 
 ### Screenshots
 
-- Database Schema:
+- **Database Schema:**
 
 ![Database Schema](Images/database_schema.png)
 
-- Table Structure:
+- **Table Structure:**
 
 ![Table Structure](Images/table_structure.png)
 
-- Create Table:
+- **Create Table:**
 
 ![Create Table](Images/create_table.png)
 
