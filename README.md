@@ -59,11 +59,11 @@ The original CSV contained **2,000** records.
 While importing using **MySQL Workbench -- Table Data Import Wizard**,
 only **1,987** records were imported successfully.
 
-  Description               Records
-  ----------------------- ---------
-  Original Dataset            2,000
-  Successfully Imported       1,987
-  Not Imported                   13
+ | Description            |   Records|
+ | -----------------------|--------- |
+ | Original Dataset       |   2,000  | 
+ | Successfully Imported  |  1,987   |
+ | Not Imported           |    13    | 
 
 > The excluded records contained incomplete values (primarily in the **Age** and
 > **Quantity** column). Rather than manually modifying the source data,
